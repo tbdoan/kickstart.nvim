@@ -1,4 +1,7 @@
 return {
+  -- plain annoying
+  vim.keymap.set('n', 'J', 'j'),
+
   -- bum ass behavior
   vim.keymap.set('i', 'jj', '<Esc>'),
   vim.keymap.set('i', 'jJ', '<Esc>'),

@@ -375,6 +375,7 @@ require('lazy').setup({
 
       -- [[ Configure Telescope ]]
       -- See `:help telescope` and `:help telescope.setup()`
+      local actions = require 'telescope.actions'
       require('telescope').setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
@@ -382,6 +383,11 @@ require('lazy').setup({
         -- pickers = {}
         defaults = {
           file_ignore_patterns = { '^vendor/' },
+          mappings = {
+            i = {
+              ['<esc>'] = actions.close,
+            },
+          },
         },
         extensions = {
           ['ui-select'] = {
@@ -875,6 +881,7 @@ require('lazy').setup({
       -- Like many other themes, this one has different styles, and you could load
       -- any other, such as 'tokyonight-storm', 'tokyonight-moon', or 'tokyonight-day'.
       vim.cmd.colorscheme 'gruvbox'
+      vim.o.background = 'dark'
 
       -- You can configure highlights by doing something like:
       vim.cmd.hi 'Comment gui=none'

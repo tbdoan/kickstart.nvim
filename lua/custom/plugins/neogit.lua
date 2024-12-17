@@ -12,7 +12,7 @@ return {
     vim.keymap.set('n', '<C-g>', '<Nop>')
     vim.keymap.set('n', '<C-g>', ng.open)
     ng.setup {
-      kind = 'split_below',
+      kind = 'split_below_all',
     }
   end,
 }

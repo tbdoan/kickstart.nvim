@@ -19,6 +19,10 @@ return {
         api.config.mappings.default_on_attach(bufnr)
         vim.keymap.set('n', 'M', api.tree.collapse_all, opts 'Collapse All')
         vim.keymap.del('n', '<C-e>', { buffer = bufnr })
+        local treeutils = require 'custom.utils.treeutils'
+
+        vim.keymap.set('n', '<leader>fif', treeutils.launch_find_files, opts 'Launch Find Files')
+        vim.keymap.set('n', '<leader>fig', treeutils.launch_live_grep, opts 'Launch Live Grep')
       end,
     }
     vim.keymap.set('n', '<leader>p', require('nvim-tree.api').tree.toggle, { desc = 'Toggle File Tree' })

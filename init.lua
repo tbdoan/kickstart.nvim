@@ -424,6 +424,27 @@ require('lazy').setup({
       -- See `:help telescope` and `:help telescope.setup()`
       local actions = require 'telescope.actions'
       local M = require 'custom.utils.prettypicker'
+      local get_selection_window = function(_, _)
+        -- Get a list of all open windows
+        local windows = vim.api.nvim_list_wins()
+        local topmost_win = nil
+        local topmost_row = math.huge -- Start with a very large row value
+
+        -- Iterate through all windows to find the one with the smallest row (closest to the top)
+        for _, win in ipairs(windows) do
+          -- Get the window position (row is the vertical position)
+          local win_row = vim.api.nvim_win_get_position(win)[1]
+
+          -- Compare to find the topmost window
+          if win_row < topmost_row then
+            topmost_row = win_row
+            topmost_win = win
+          end
+        end
+
+        return topmost_win
+      end
+
       require('telescope').setup {
         -- You can put your default mappings / updates / etc. in here
         --  All the info you're looking for is in `:help telescope.setup()`
@@ -436,9 +457,7 @@ require('lazy').setup({
               ['<esc>'] = actions.close,
             },
           },
-          get_selection_window = function()
-            return 0
-          end,
+          get_selection_window = get_selection_window,
         },
         extensions = {
           ['ui-select'] = {

@@ -34,6 +34,12 @@ return {
     vim.keymap.set('n', '<C-g>', toggle_neogit_status)
     ng.setup {
       kind = 'split_below_all',
+      mappings = {
+        status = {
+          ['[c'] = 'GoToPreviousHunkHeader',
+          [']c'] = 'GoToNextHunkHeader',
+        },
+      },
     }
   end,
 }

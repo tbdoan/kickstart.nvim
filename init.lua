@@ -240,65 +240,6 @@ require('lazy').setup({
   --    require('gitsigns').setup({ ... })
   --
   -- See `:help gitsigns` to understand what the configuration keys do
-  { -- Adds git related signs to the gutter, as well as utilities for managing changes
-    'lewis6991/gitsigns.nvim',
-    opts = {
-      signs = {
-        add = { text = '+' },
-        change = { text = '~' },
-        delete = { text = '_' },
-        topdelete = { text = '‾' },
-        changedelete = { text = '~' },
-      },
-      on_attach = function(bufnr)
-        local gitsigns = require 'gitsigns'
-
-        local function map(mode, l, r, opts)
-          opts = opts or {}
-          opts.buffer = bufnr
-          vim.keymap.set(mode, l, r, opts)
-        end
-
-        -- Navigation
-        map('n', ']c', function()
-          if vim.wo.diff then
-            vim.cmd.normal { ']c', bang = true }
-          else
-            gitsigns.nav_hunk 'next'
-          end
-        end)
-
-        map('n', '[c', function()
-          if vim.wo.diff then
-            vim.cmd.normal { '[c', bang = true }
-          else
-            gitsigns.nav_hunk 'prev'
-          end
-        end)
-
-        -- Actions
-        map('n', '<leader>hs', gitsigns.stage_hunk, { desc = 'gitsigns.stage_hunk' })
-        map('n', '<leader>hr', gitsigns.reset_hunk, { desc = 'gitsigns.reset_hunk' })
-        map('v', '<leader>hs', function()
-          gitsigns.stage_hunk { vim.fn.line '.', vim.fn.line 'v' }
-        end, { desc = 'gitsigns.stage_hunk' })
-        map('v', '<leader>hr', function()
-          gitsigns.reset_hunk { vim.fn.line '.', vim.fn.line 'v' }
-        end, { desc = 'gitsigns.reset_hunk' })
-        map('n', '<leader>hS', gitsigns.stage_buffer, { desc = 'gitsigns.stage_buffer' })
-        map('n', '<leader>hu', gitsigns.undo_stage_hunk, { desc = 'gitsigns.undo_stage_hunk' })
-        map('n', '<leader>hR', gitsigns.reset_buffer, { desc = 'gitsigns.reset_buffer' })
-        map('n', '<leader>hp', gitsigns.preview_hunk, { desc = 'gitsigns.preview_hunk' })
-        map('n', '<leader>hb', function()
-          gitsigns.blame_line { full = true }
-        end, { desc = 'blame' })
-        map('n', '<leader>hd', gitsigns.diffthis, { desc = 'gitsigns.diffthis' })
-        map('n', '<leader>hD', function()
-          gitsigns.diffthis '~'
-        end)
-      end,
-    },
-  },
 
   -- NOTE: Plugins can also be configured to run Lua code when they are loaded.
   --
@@ -458,6 +399,11 @@ require('lazy').setup({
             },
           },
           get_selection_window = get_selection_window,
+          -- dynamic_preview_title = true,
+          layout_strategy = 'vertical',
+          layout_config = { vertical = { width = 0.9, height = 0.9, preview_height = 0.6, preview_cutoff = 0 } },
+          path_display = { 'tail' },
+          wrap_results = true,
         },
         extensions = {
           ['ui-select'] = {
@@ -554,35 +500,6 @@ require('lazy').setup({
       'hrsh7th/cmp-nvim-lsp',
     },
     config = function()
-      -- Brief aside: **What is LSP?**
-      --
-      -- LSP is an initialism you've probably heard, but might not understand what it is.
-      --
-      -- LSP stands for Language Server Protocol. It's a protocol that helps editors
-      -- and language tooling communicate in a standardized fashion.
-      --
-      -- In general, you have a "server" which is some tool built to understand a particular
-      -- language (such as `gopls`, `lua_ls`, `rust_analyzer`, etc.). These Language Servers
-      -- (sometimes called LSP servers, but that's kind of like ATM Machine) are standalone
-      -- processes that communicate with some "client" - in this case, Neovim!
-      --
-      -- LSP provides Neovim with features like:
-      --  - Go to definition
-      --  - Find references
-      --  - Autocompletion
-      --  - Symbol Search
-      --  - and more!
-      --
-      -- Thus, Language Servers are external tools that must be installed separately from
-      -- Neovim. This is where `mason` and related plugins come into play.
-      --
-      -- If you're wondering about lsp vs treesitter, you can check out the wonderfully
-      -- and elegantly composed help section, `:help lsp-vs-treesitter`
-
-      --  This function gets run when an LSP attaches to a particular buffer.
-      --    That is to say, every time a new file is opened that is associated with
-      --    an lsp (for example, opening `main.rs` is associated with `rust_analyzer`) this
-      --    function will be executed to configure the current buffer
       vim.api.nvim_create_autocmd('LspAttach', {
         group = vim.api.nvim_create_augroup('kickstart-lsp-attach', { clear = true }),
         callback = function(event)
@@ -717,7 +634,6 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        -- clangd = {},
         gopls = {},
         -- pyright = {},
         rust_analyzer = {},
@@ -746,7 +662,6 @@ require('lazy').setup({
         },
         nil_ls = {},
         pbls = {},
-        clangd = {},
       }
 
       -- Ensure the servers and tools above are installed
@@ -772,7 +687,7 @@ require('lazy').setup({
             -- This handles overriding only values explicitly passed
             -- by the server configuration above. Useful when disabling
             -- certain features of an LSP (for example, turning off formatting for ts_ls)
-            server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
+            -- server.capabilities = vim.tbl_deep_extend('force', {}, capabilities, server.capabilities or {})
             require('lspconfig')[server_name].setup(server)
           end,
         },

@@ -1,11 +1,11 @@
 return {
-  'NeogitOrg/neogit',
+  'tbdoan/neogit',
   dependencies = {
-    'nvim-lua/plenary.nvim', -- required
-    'sindrets/diffview.nvim', -- optional - Diff integration
+    'nvim-lua/plenary.nvim',
+    'sindrets/diffview.nvim',
 
     -- Only one of these is needed.
-    'nvim-telescope/telescope.nvim', -- optional
+    'nvim-telescope/telescope.nvim',
   },
   config = function()
     local ng = require 'neogit'

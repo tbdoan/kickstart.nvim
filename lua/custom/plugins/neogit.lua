@@ -38,6 +38,8 @@ return {
         status = {
           ['[c'] = 'GoToPreviousHunkHeader',
           [']c'] = 'GoToNextHunkHeader',
+          ['}'] = 'NextSection',
+          ['{'] = 'PreviousSection',
         },
       },
     }

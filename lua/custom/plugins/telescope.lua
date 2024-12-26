@@ -57,12 +57,18 @@ return { -- Fuzzy Finder (files, lsp, etc)
         mappings = {
           i = {
             ['<esc>'] = actions.close,
+            -- allows pasting line yanks into telescope
+            ['<c-y>'] = function()
+              -- testing testing testing
+              local trimmed_yank = require('custom.utils.common').trim(vim.fn.getreg '"')
+              vim.api.nvim_put({ trimmed_yank }, '', true, true)
+            end,
           },
         },
         get_selection_window = require('custom.utils.mainwindow').only_window,
         -- dynamic_preview_title = true,
         layout_strategy = 'vertical',
-        layout_config = { vertical = { width = 0.9, height = 0.9, preview_height = 0.6, preview_cutoff = 0 } },
+        layout_config = { vertical = { width = 0.9, height = 0.9, preview_height = 0.6, preview_cutoff = 0 }, scroll_speed = 1 },
         path_display = { 'tail' },
         wrap_results = true,
       },

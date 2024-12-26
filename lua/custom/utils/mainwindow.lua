@@ -22,6 +22,7 @@ local function find_main_win()
   return vim.api.nvim_open_win(0, true, { split = 'above' })
 end
 
+local M = {}
 -- 1. close non project windows
 -- 2. if i'm in a project buf, use that
 -- 3. if there is a project buf, use that

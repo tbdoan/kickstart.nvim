@@ -7,14 +7,12 @@ end
 
 local function find_main_win()
   if is_project_win() then
-    print 'is project win'
     return vim.api.nvim_get_current_win()
   end
 
   local wins = vim.api.nvim_list_wins()
   for _, win in ipairs(wins) do
     if is_project_win(win) then
-      print('found nother project win ' .. win)
       return win
     end
   end
@@ -32,7 +30,6 @@ M.only_window = function(_, _)
   local ret = find_main_win()
 
   local wins = vim.api.nvim_list_wins()
-  print(ret)
   for _, win in ipairs(wins) do
     if win ~= ret and not is_project_win(win) then
       vim.api.nvim_win_close(win, false)

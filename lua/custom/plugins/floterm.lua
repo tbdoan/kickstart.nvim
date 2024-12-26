@@ -45,6 +45,7 @@ local toggle_terminal = function()
     if vim.bo[state.floating.buf].buftype ~= 'terminal' then
       vim.cmd.terminal()
     end
+    vim.cmd.startinsert()
   else
     vim.api.nvim_win_hide(state.floating.win)
   end
@@ -52,7 +53,7 @@ end
 
 -- Example usage:
 -- Create a floating window with default dimensions
-vim.api.nvim_create_user_command('Floaterminal', toggle_terminal, {})
 vim.keymap.set({ 'n', 't' }, '<leader>tt', toggle_terminal)
+-- Automatically enter insert mode when opening a terminal
 
 return {}

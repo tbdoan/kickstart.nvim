@@ -39,21 +39,19 @@ local function create_floating_window(opts)
   return { buf = buf, win = win }
 end
 
-local toggle_terminal = function()
-  if not vim.api.nvim_win_is_valid(state.floating.win) then
-    state.floating = create_floating_window { buf = state.floating.buf }
-    if vim.bo[state.floating.buf].buftype ~= 'terminal' then
-      vim.cmd.terminal()
-    end
-    vim.cmd.startinsert()
-  else
-    vim.api.nvim_win_hide(state.floating.win)
+local function show_term()
+  state.floating = create_floating_window { buf = state.floating.buf }
+  if vim.bo[state.floating.buf].buftype ~= 'terminal' then
+    vim.cmd.terminal()
   end
+  vim.cmd.startinsert()
 end
 
--- Example usage:
--- Create a floating window with default dimensions
-vim.keymap.set({ 'n', 't' }, '<leader>tt', toggle_terminal)
--- Automatically enter insert mode when opening a terminal
+local function hide_term()
+  vim.api.nvim_win_hide(state.floating.win)
+end
+
+vim.keymap.set('n', '<leader>tt', show_term)
+vim.keymap.set('t', '<c-d>', hide_term)
 
 return {}

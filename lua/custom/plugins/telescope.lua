@@ -58,11 +58,6 @@ return { -- Fuzzy Finder (files, lsp, etc)
           i = {
             ['<esc>'] = actions.close,
             -- allows pasting line yanks into telescope
-            ['<c-y>'] = function()
-              -- testing testing testing
-              local trimmed_yank = require('custom.utils.common').trim(vim.fn.getreg '"')
-              vim.api.nvim_put({ trimmed_yank }, '', true, true)
-            end,
           },
         },
         get_selection_window = require('custom.utils.mainwindow').only_window,

@@ -14,8 +14,7 @@ return {
     vim.keymap.set('n', 'zM', require('ufo').closeAllFolds, { desc = '[M]inimize all folds' })
     vim.keymap.set('n', 'zP', function()
       require('ufo.preview'):peekFoldedLinesUnderCursor()
-    end)
-
+    end, { desc = '[P]eek fold' })
     -- Option 2: nvim lsp as LSP client
     -- Tell the server the capability of foldingRange,
     -- Neovim hasn't added foldingRange to default capabilities, users must add it manually

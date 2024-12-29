@@ -10,18 +10,7 @@ return {
   config = function()
     local ng = require 'neogit'
     local function toggle_neogit_status()
-      -- Get a list of all open windows
-      local windows = vim.api.nvim_list_wins()
-      local closed = false
-      -- Check if Neogit's status window is already open
-      for _, win in ipairs(windows) do
-        local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(win))
-        if bufname:match 'Neogit%w+$' then
-          -- Close the Neogit status window if it is open
-          vim.api.nvim_win_close(win, true)
-          closed = true
-        end
-      end
+      local closed = require('custom.utils.closeneogit').close_neogit_windows()
       if closed then
         return
       end

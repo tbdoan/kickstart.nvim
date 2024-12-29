@@ -17,7 +17,7 @@ return {
   vim.keymap.set('v', 'J', ":m '>+1<CR>gv=gv"),
   vim.keymap.set({ 'i', 'n' }, '<c-y>', function()
     -- testing testing testing
-    local trimmed_yank = require('custom.utils.common').trim(vim.fn.getreg '"')
+    local trimmed_yank = vim.trim(vim.fn.getreg '"')
     vim.api.nvim_put({ trimmed_yank }, '', true, true)
   end, { desc = 'trim whitespace and paste' }),
   vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv"),

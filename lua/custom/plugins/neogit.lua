@@ -16,7 +16,6 @@ return {
       -- Check if Neogit's status window is already open
       for _, win in ipairs(windows) do
         local bufname = vim.api.nvim_buf_get_name(vim.api.nvim_win_get_buf(win))
-        print(bufname)
         if bufname:match 'Neogit%w+$' then
           -- Close the Neogit status window if it is open
           vim.api.nvim_win_close(win, true)

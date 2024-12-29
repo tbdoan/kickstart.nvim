@@ -6,10 +6,6 @@ local function is_project_win(win)
 end
 
 local function find_main_win()
-  if is_project_win() then
-    return vim.api.nvim_get_current_win()
-  end
-
   local wins = vim.api.nvim_list_wins()
   for _, win in ipairs(wins) do
     if is_project_win(win) then
@@ -21,14 +17,16 @@ local function find_main_win()
 end
 
 local M = {}
--- 1. close non project windows
--- 2. if i'm in a project buf, use that
+-- 1. if i'm in a project buf, use that
+-- 2. close non project windows
 -- 3. if there is a project buf, use that
 -- 4. open a new win, use that
 M.only_window = function(_, _)
-  -- if we're in a project buffer, use that
-  local ret = find_main_win()
+  if is_project_win() then
+    return vim.api.nvim_get_current_win()
+  end
 
+  local ret = find_main_win()
   local wins = vim.api.nvim_list_wins()
   for _, win in ipairs(wins) do
     if win ~= ret and not is_project_win(win) then

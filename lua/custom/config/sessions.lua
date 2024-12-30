@@ -18,7 +18,12 @@ end
 vim.api.nvim_create_autocmd('VimLeave', {
   pattern = '*',
   callback = function()
-    MiniSessions.write(get_session_name())
+    -- if it was opened with a directory
+    if vim.fn.argc() == 0 then
+      pcall(function()
+        MiniSessions.write(get_session_name())
+      end)
+    end
   end,
 })
 

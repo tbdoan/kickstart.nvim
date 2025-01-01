@@ -21,4 +21,6 @@ return {
     vim.api.nvim_put({ trimmed_yank }, '', true, true)
   end, { desc = 'trim whitespace and paste' }),
   vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv"),
+  vim.keymap.set('n', '<Tab>', 'za'),
+  vim.keymap.set('n', '<c-f>', '<c-i>', { desc = '[F]orward' }),
 }

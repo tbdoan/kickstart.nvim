@@ -51,7 +51,7 @@ local function hide_term()
   vim.api.nvim_win_hide(state.floating.win)
 end
 
-vim.keymap.set('n', '<leader>tt', show_term)
+vim.keymap.set('n', '<leader>tt', show_term, { desc = 'Show floating term' })
 vim.keymap.set('t', '<c-d>', hide_term)
 
 return {}

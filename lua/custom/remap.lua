@@ -23,4 +23,10 @@ return {
   vim.keymap.set('v', 'K', ":m '<-2<CR>gv=gv"),
   vim.keymap.set('n', '<Tab>', 'za'),
   vim.keymap.set('n', '<c-f>', '<c-i>', { desc = '[F]orward' }),
+  vim.keymap.set('n', '<leader>tc', function()
+    vim.api.nvim_command 'tabc'
+  end, { desc = '[T]ab [C]lose' }),
+  vim.keymap.set('n', '<leader>tn', function()
+    vim.api.nvim_command 'tabn'
+  end, { desc = '[T]ab [N]ext' }),
 }

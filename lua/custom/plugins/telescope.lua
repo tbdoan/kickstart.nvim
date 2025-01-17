@@ -82,7 +82,9 @@ return { -- Fuzzy Finder (files, lsp, etc)
     local builtin = require 'telescope.builtin'
     vim.keymap.set('n', '<leader>fh', builtin.help_tags, { desc = '[F]ind [H]elp' })
     vim.keymap.set('n', '<leader>fk', builtin.keymaps, { desc = '[F]ind [K]eymaps' })
-    vim.keymap.set('n', '<leader>ff', prettypick.project_files, { desc = '[F]ind [F]iles' })
+    vim.keymap.set('n', '<leader>ff', function()
+      prettypick.project_files { hidden = true }
+    end, { desc = '[F]ind [F]iles' })
     vim.keymap.set('n', '<leader>fp', builtin.builtin, { desc = '[F]ind [P]ickers' })
     vim.keymap.set('n', '<leader>f*', builtin.grep_string, { desc = '[F]ind current word' })
     vim.keymap.set('n', '<leader>fg', builtin.live_grep, { desc = '[F]ind by [G]rep' })

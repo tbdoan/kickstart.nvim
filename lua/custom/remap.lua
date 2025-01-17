@@ -29,4 +29,6 @@ return {
   vim.keymap.set('n', '<leader>tn', function()
     vim.api.nvim_command 'tabn'
   end, { desc = '[T]ab [N]ext' }),
+  vim.keymap.set('n', '<c-w>s', '<c-w>x', { desc = '[S]witch windows' }),
+  vim.keymap.set('n', '<c-w>x', '<c-w>s', { desc = 'Split window horizontally' }),
 }

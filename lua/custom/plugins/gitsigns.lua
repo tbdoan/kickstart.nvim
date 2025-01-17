@@ -21,6 +21,7 @@ return {
             vim.cmd.normal { ']c', bang = true }
           else
             gitsigns.nav_hunk 'next'
+            vim.fn.feedkeys 'zz'
           end
         end, { desc = 'next [c]hange' })
 
@@ -29,6 +30,7 @@ return {
             vim.cmd.normal { '[c', bang = true }
           else
             gitsigns.nav_hunk 'prev'
+            vim.fn.feedkeys 'zz'
           end
         end, { desc = 'prev [c]hange' })
 

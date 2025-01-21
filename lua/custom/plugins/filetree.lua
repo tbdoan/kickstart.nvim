@@ -37,6 +37,7 @@ return {
         vim.keymap.set('n', 'p', api.fs.paste, opts 'Paste')
         vim.keymap.set('n', 'P', api.node.navigate.parent, opts 'Parent Directory')
         vim.keymap.set('n', 'r', api.fs.rename, opts 'Rename')
+        vim.keymap.set('n', 'R', api.tree.change_root_to_node, opts 'Reroot')
         vim.keymap.set('n', '<c-r>', api.tree.reload, opts 'Refresh')
         vim.keymap.set('n', 'M', api.tree.collapse_all, opts 'Collapse All')
         vim.keymap.set('n', 'x', api.fs.cut, opts 'Cut')
